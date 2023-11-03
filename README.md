@@ -1,6 +1,6 @@
 # edwards25519
 
-## edwards25519, where security meets simplicity in cryptography!!
+### edwards25519, where security meets simplicity in cryptography!!
 
 ```dart
 import 'package:edwards25519/edwards25519.dart';
