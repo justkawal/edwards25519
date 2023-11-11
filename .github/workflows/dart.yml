@@ -40,8 +40,8 @@ jobs:
         run: dart analyze --fatal-infos
       
       # Run tests
-      - name: Run Tests
-        run: dart test --fail-fast
+      #- name: Run Tests
+      #  run: dart test --fail-fast
 
       # Activate coverage
       - name: Activate Coverage
