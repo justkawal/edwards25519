@@ -86,8 +86,8 @@ class Scalar {
   /// 64 uniformly distributed random bytes.
   void setUniformBytes(List<int> x) {
     if (x.length != 64) {
-      //return nil, errors.New("edwards25519: invalid SetUniformBytes input length")
-      throw ArgumentError("edwards25519: invalid setUniformBytes input length");
+      //return nil, errors.New('edwards25519: invalid SetUniformBytes input length')
+      throw ArgumentError('edwards25519: invalid setUniformBytes input length');
     }
 
     // We have a value x of 512 bits, but our fiatScalarFromBytes function
@@ -133,7 +133,7 @@ class Scalar {
   void setShortBytes(List<int> x) {
     if (x.length >= 32) {
       throw ArgumentError(
-          "edwards25519: internal error: setShortBytes called with a long string");
+          'edwards25519: internal error: setShortBytes called with a long string');
     }
 
     List<int> buf = List<int>.filled(32, 0, growable: false);
@@ -147,10 +147,10 @@ class Scalar {
   /// returns nil and an error, and the receiver is unchanged.
   void setCanonicalBytes(List<int> x) {
     if (x.length != 32) {
-      throw ArgumentError("edwards25519: invalid scalar length");
+      throw ArgumentError('edwards25519: invalid scalar length');
     }
     if (!isReduced(x)) {
-      throw ArgumentError("edwards25519: invalid scalar encoding");
+      throw ArgumentError('edwards25519: invalid scalar encoding');
     }
 
     fiatScalarFromBytes(s, x);
@@ -228,7 +228,7 @@ class Scalar {
     // implementation bug that was once observed in a generic Montgomery ladder.
     if (x.length != 32) {
       throw ArgumentError(
-          "edwards25519: invalid SetBytesWithClamping input length");
+          'edwards25519: invalid SetBytesWithClamping input length');
     }
 
     // We need to use the wide reduction from SetUniformBytes, since clamping
@@ -281,13 +281,13 @@ class Scalar {
     // https://github.com/dalek-cryptography/curve25519-dalek/blob/f630041af28e9a405255f98a8a93adca18e4315b/src/scalar.rs#L800-L871
     final Uint8List b = Bytes();
     if (b[31] > 127) {
-      throw ArgumentError("edwards25519: scalar has high bit set illegally");
+      throw ArgumentError('edwards25519: scalar has high bit set illegally');
     }
     if (w < 2) {
       throw ArgumentError(
-          "edwards25519: w must be at least 2 by the definition of NAF");
+          'edwards25519: w must be at least 2 by the definition of NAF');
     } else if (w > 8) {
-      throw ArgumentError("edwards25519: NAF digits must fit in int8");
+      throw ArgumentError('edwards25519: NAF digits must fit in int8');
     }
 
     List<int> naf = List<int>.filled(256, 0, growable: false);
@@ -355,7 +355,7 @@ class Scalar {
   List<int> signedRadix16() {
     final b = Bytes();
     if (b[31] > 127) {
-      throw ArgumentError("edwards25519: scalar has high bit set illegally");
+      throw ArgumentError('edwards25519: scalar has high bit set illegally');
     }
 
     final digits = List<int>.filled(64, 0, growable: false);

@@ -128,7 +128,7 @@ class Point {
     //   2) the ones where the x-coordinate is zero and the sign bit is set.
     //
     // Read more at https://hdevalence.ca/blog/2020-10-04-its-25519am,
-    // specifically the "Canonical A, R" section.
+    // specifically the 'Canonical A, R' section.
 
     final y1 = Element.feZero()..setBytes(bytes);
 
@@ -147,7 +147,7 @@ class Point {
     // x = +√(u/v)
     final (Element xx, int wasSquare) = Element.feZero().sqrtRatio(u, vv);
     if (wasSquare == 0) {
-      throw Exception("edwards25519: invalid point encoding");
+      throw Exception('edwards25519: invalid point encoding');
     }
 
     // Select the negative square root if the sign bit is set.
@@ -277,7 +277,7 @@ class Point {
   /// unchanged. Otherwise, SetExtendedCoordinates returns v.
   void setExtendedCoordinates(Element X, Element Y, Element Z, Element T) {
     if (!checkOnCurve([Point(X, Y, Z, T)])) {
-      throw ArgumentError("edwards25519: invalid point coordinates");
+      throw ArgumentError('edwards25519: invalid point coordinates');
     }
     x.set(X);
     y.set(Y);
@@ -344,7 +344,7 @@ class Point {
   void multiScalarMult(List<Scalar> scalars, List<Point> points) {
     if (scalars.length != points.length) {
       throw Exception(
-          "edwards25519: called MultiScalarMult with different size inputs");
+          'edwards25519: called MultiScalarMult with different size inputs');
     }
     // Proceed as in the single-base case, but share doublings
     // between each point in the multiscalar equation.
@@ -398,7 +398,7 @@ class Point {
   void varTimeMultiScalarMult(List<Scalar> scalars, List<Point> points) {
     if (scalars.length != points.length) {
       throw Exception(
-          "edwards25519: called VarTimeMultiScalarMult with different size inputs");
+          'edwards25519: called VarTimeMultiScalarMult with different size inputs');
     }
 
     // Generalize double-base NAF computation to arbitrary sizes.
@@ -555,8 +555,8 @@ class Point {
     // radix 16.  This is like a binary representation (one digit
     // for each binary place) but we allow the digits to grow in
     // magnitude up to 2^{w-1} so that the nonzero digits are as
-    // sparse as possible.  Intuitively, this "condenses" the
-    // "mass" of the scalar onto sparse coefficients (meaning
+    // sparse as possible.  Intuitively, this 'condenses' the
+    // 'mass' of the scalar onto sparse coefficients (meaning
     // fewer additions).
 
     final basepointNafTable = basepointNafTablePrecomp.instance.table;

@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+
 import 'package:convert/convert.dart';
 import 'package:edwards25519/edwards25519.dart';
 import 'package:test/test.dart';
@@ -165,101 +166,101 @@ void main() {
       // Points with x = 0 and the sign bit set. With x = 0 the curve equation
       // gives y² = 1, so y = ±1. 1 has two valid encodings.
       (
-        "y=1,sign-",
-        "0100000000000000000000000000000000000000000000000000000000000080",
-        "0100000000000000000000000000000000000000000000000000000000000000",
+        'y=1,sign-',
+        '0100000000000000000000000000000000000000000000000000000000000080',
+        '0100000000000000000000000000000000000000000000000000000000000000',
       ),
       (
-        "y=p+1,sign-",
-        "eeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-        "0100000000000000000000000000000000000000000000000000000000000000",
+        'y=p+1,sign-',
+        'eeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+        '0100000000000000000000000000000000000000000000000000000000000000',
       ),
       (
-        "y=p-1,sign-",
-        "ecffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-        "ecffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f",
+        'y=p-1,sign-',
+        'ecffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+        'ecffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f',
       ),
       // Non-canonical y encodings with values 2²⁵⁵-19 (p) to 2²⁵⁵-1 (p+18).
       (
-        "y=p,sign+",
-        "edffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f",
-        "0000000000000000000000000000000000000000000000000000000000000000",
+        'y=p,sign+',
+        'edffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f',
+        '0000000000000000000000000000000000000000000000000000000000000000',
       ),
       (
-        "y=p,sign-",
-        "edffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-        "0000000000000000000000000000000000000000000000000000000000000080",
+        'y=p,sign-',
+        'edffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+        '0000000000000000000000000000000000000000000000000000000000000080',
       ),
       (
-        "y=p+1,sign+",
-        "eeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f",
-        "0100000000000000000000000000000000000000000000000000000000000000",
+        'y=p+1,sign+',
+        'eeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f',
+        '0100000000000000000000000000000000000000000000000000000000000000',
       ),
-      // "y=p+1,sign-" is already tested above.
+      // 'y=p+1,sign-' is already tested above.
       // p+2 is not a valid y-coordinate.
       (
-        "y=p+3,sign+",
-        "f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f",
-        "0300000000000000000000000000000000000000000000000000000000000000",
+        'y=p+3,sign+',
+        'f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f',
+        '0300000000000000000000000000000000000000000000000000000000000000',
       ),
       (
-        "y=p+3,sign-",
-        "f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-        "0300000000000000000000000000000000000000000000000000000000000080",
+        'y=p+3,sign-',
+        'f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+        '0300000000000000000000000000000000000000000000000000000000000080',
       ),
       (
-        "y=p+4,sign+",
-        "f1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f",
-        "0400000000000000000000000000000000000000000000000000000000000000",
+        'y=p+4,sign+',
+        'f1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f',
+        '0400000000000000000000000000000000000000000000000000000000000000',
       ),
       (
-        "y=p+4,sign-",
-        "f1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-        "0400000000000000000000000000000000000000000000000000000000000080",
+        'y=p+4,sign-',
+        'f1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+        '0400000000000000000000000000000000000000000000000000000000000080',
       ),
       (
-        "y=p+5,sign+",
-        "f2ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f",
-        "0500000000000000000000000000000000000000000000000000000000000000",
+        'y=p+5,sign+',
+        'f2ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f',
+        '0500000000000000000000000000000000000000000000000000000000000000',
       ),
       (
-        "y=p+5,sign-",
-        "f2ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-        "0500000000000000000000000000000000000000000000000000000000000080",
+        'y=p+5,sign-',
+        'f2ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+        '0500000000000000000000000000000000000000000000000000000000000080',
       ),
       (
-        "y=p+6,sign+",
-        "f3ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f",
-        "0600000000000000000000000000000000000000000000000000000000000000",
+        'y=p+6,sign+',
+        'f3ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f',
+        '0600000000000000000000000000000000000000000000000000000000000000',
       ),
       (
-        "y=p+6,sign-",
-        "f3ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-        "0600000000000000000000000000000000000000000000000000000000000080",
+        'y=p+6,sign-',
+        'f3ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+        '0600000000000000000000000000000000000000000000000000000000000080',
       ),
 
       // p+7 is not a valid y-coordinate.
       // p+8 is not a valid y-coordinate.
 
       (
-        "y=p+9,sign+",
-        "f6ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f",
-        "0900000000000000000000000000000000000000000000000000000000000000",
+        'y=p+9,sign+',
+        'f6ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f',
+        '0900000000000000000000000000000000000000000000000000000000000000',
       ),
       (
-        "y=p+9,sign-",
-        "f6ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-        "0900000000000000000000000000000000000000000000000000000000000080",
+        'y=p+9,sign-',
+        'f6ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+        '0900000000000000000000000000000000000000000000000000000000000080',
       ),
       (
-        "y=p+10,sign+",
-        "f7ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f",
-        "0a00000000000000000000000000000000000000000000000000000000000000",
+        'y=p+10,sign+',
+        'f7ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f',
+        '0a00000000000000000000000000000000000000000000000000000000000000',
       ),
       (
-        "y=p+10,sign-",
-        "f7ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-        "0a00000000000000000000000000000000000000000000000000000000000080",
+        'y=p+10,sign-',
+        'f7ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+        '0a00000000000000000000000000000000000000000000000000000000000080',
       ),
 
       // p+11 is not a valid y-coordinate.
@@ -267,47 +268,47 @@ void main() {
       // p+13 is not a valid y-coordinate.
 
       (
-        "y=p+14,sign+",
-        "fbffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f",
-        "0e00000000000000000000000000000000000000000000000000000000000000",
+        'y=p+14,sign+',
+        'fbffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f',
+        '0e00000000000000000000000000000000000000000000000000000000000000',
       ),
       (
-        "y=p+14,sign-",
-        "fbffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-        "0e00000000000000000000000000000000000000000000000000000000000080",
+        'y=p+14,sign-',
+        'fbffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+        '0e00000000000000000000000000000000000000000000000000000000000080',
       ),
       (
-        "y=p+15,sign+",
-        "fcffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f",
-        "0f00000000000000000000000000000000000000000000000000000000000000",
+        'y=p+15,sign+',
+        'fcffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f',
+        '0f00000000000000000000000000000000000000000000000000000000000000',
       ),
       (
-        "y=p+15,sign-",
-        "fcffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-        "0f00000000000000000000000000000000000000000000000000000000000080",
+        'y=p+15,sign-',
+        'fcffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+        '0f00000000000000000000000000000000000000000000000000000000000080',
       ),
       (
-        "y=p+16,sign+",
-        "fdffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f",
-        "1000000000000000000000000000000000000000000000000000000000000000",
+        'y=p+16,sign+',
+        'fdffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f',
+        '1000000000000000000000000000000000000000000000000000000000000000',
       ),
       (
-        "y=p+16,sign-",
-        "fdffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-        "1000000000000000000000000000000000000000000000000000000000000080",
+        'y=p+16,sign-',
+        'fdffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+        '1000000000000000000000000000000000000000000000000000000000000080',
       ),
 
       // p+17 is not a valid y-coordinate.
 
       (
-        "y=p+18,sign+",
-        "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f",
-        "1200000000000000000000000000000000000000000000000000000000000000",
+        'y=p+18,sign+',
+        'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f',
+        '1200000000000000000000000000000000000000000000000000000000000000',
       ),
       (
-        "y=p+18,sign-",
-        "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-        "1200000000000000000000000000000000000000000000000000000000000080",
+        'y=p+18,sign-',
+        'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+        '1200000000000000000000000000000000000000000000000000000000000080',
       ),
     ];
     for (final value in tests) {

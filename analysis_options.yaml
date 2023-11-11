@@ -5,7 +5,6 @@ linter:
     camel_case_types: false
     file_names: false
     non_constant_identifier_names: false
-    unnecessary_overrides: false
-
-analyzer:
-  language:
+    use_string_in_part_of_directives: false
+    prefer_single_quotes: true
+    prefer_final_fields: true
