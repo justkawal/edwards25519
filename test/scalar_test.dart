@@ -398,16 +398,16 @@ void main() {
 
   test('Test Scalar Equal', () {
     if (scOne.equal(scMinusOne) == 1) {
-      throw Exception("scOne.equal(scMinusOne) is true");
+      throw Exception('scOne.equal(scMinusOne) is true');
     }
     if (scMinusOne.equal(scMinusOne) == 0) {
-      throw Exception("scMinusOne.equal(scMinusOne) is false");
+      throw Exception('scMinusOne.equal(scMinusOne) is false');
     }
   });
 
   test('Test Scalar Set Uniform Bytes', () {
     BigInt mod =
-        BigInt.parse("27742317777372353535851937790883648493", radix: 10);
+        BigInt.parse('27742317777372353535851937790883648493', radix: 10);
     mod += BigInt.one << 252;
 
     for (var i = 0; i < 1024; i++) {

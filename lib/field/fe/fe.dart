@@ -212,7 +212,7 @@ class Element {
   /// consistent with most Ed25519 implementations.
   void setBytes(Uint8List x) {
     if (x.length != 32) {
-      throw ArgumentError("edwards25519: invalid field element input size");
+      throw ArgumentError('edwards25519: invalid field element input size');
     }
 
     // Bits 0:51 (bytes 0:8, bits 0:64, shift 0, mask 51).
@@ -694,7 +694,7 @@ class Element {
   /// fromBig sets v = n, and returns v. The bit length of n must not exceed 256.
   void fromBigInt(BigInt n) {
     if (n.bitLength > 32 * 8) {
-      throw ArgumentError("edwards25519: invalid field element input size");
+      throw ArgumentError('edwards25519: invalid field element input size');
     }
 
     final uint8List = Uint8List(32);
@@ -731,7 +731,7 @@ class Element {
   /// of bias is less than 2⁻²⁵⁰.
   void setWideBytes(Uint8List x) {
     if (x.length != 64) {
-      throw ArgumentError("edwards25519: invalid SetWideBytes input size");
+      throw ArgumentError('edwards25519: invalid SetWideBytes input size');
     }
 
     // Split the 64 bytes into two elements, and extract the most significant
