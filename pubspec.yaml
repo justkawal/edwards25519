@@ -1,12 +1,12 @@
 name: edwards25519
 description: edwards25519, where security meets simplicity in cryptography!!
-version: 1.0.1
+version: 1.0.2
 repository: https://github.com/justkawal/edwards25519
 
 environment:
   sdk: ^3.0.5
 
 dev_dependencies:
-  lints: ^2.0.0
-  test: ^1.21.0
+  lints: ^3.0.0
+  test: ^1.24.9
   convert: ^3.1.1
