@@ -1,6 +1,8 @@
 # edwards25519
 This library implements the edwards25519 elliptic curve, exposing the necessary APIs to build a wide array of higher-level primitives.
-Read the docs at [pub.dev/edwards25519](https://pub.dev/documentation/edwards25519/latest/).
+Read the docs at [pub.dev/edwards25519](https://pub.dev/documentation/edwards25519/latest/edwards25519/edwards25519-library.html).
+
+Inspiration: [Go-edwards25519](https://github.com/FiloSottile/edwards25519)
 
 [![codecov](https://codecov.io/gh/justkawal/edwards25519/graph/badge.svg?token=8FERML02AR)](https://codecov.io/gh/justkawal/edwards25519)
 [![Licence](https://img.shields.io/badge/License-MIT-red.svg)](./LICENSE)
@@ -31,6 +33,3 @@ void main() {
 
 ## Donate
 If you like this repo and found it useful, please consider **donating ❤️**!! Donation goes towards my tuition fees and helps me maintain edwards25519 and other repos. Thank you so much!!`
-
-
-Inspiration: [Go-edwards25519](https://github.com/FiloSottile/edwards25519)
