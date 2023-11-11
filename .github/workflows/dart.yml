@@ -1,22 +1,26 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-name: Dart
+name: Build and Test
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
+    paths-ignore:
+      - "**.md"
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "**.md"
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3.5.0
+        with:
+          fetch-depth: 2
 
       # Note: This workflow uses the latest stable version of the Dart SDK.
       # You can specify other versions if desired, see documentation here:
@@ -31,12 +35,25 @@ jobs:
       - name: Verify formatting
         run: dart format --output=none --set-exit-if-changed .
 
-      # Consider passing '' for slightly stricter analysis.
+      # Consider passing '--fatal-infos' for slightly stricter analysis.
       - name: Analyze project source
-        run: dart analyze --fatal-infos .
+        run: dart analyze --fatal-infos
+      
+      # Run tests
+      - name: Run Tests
+        run: dart test --fail-fast
 
-      # Your project will need to have tests in test/ and a dependency on
-      # package:test for this step to succeed. Note that Flutter projects will
-      # want to change this to 'flutter test'.
-      - name: Run tests
-        run: dart test
+      # Activate coverage
+      - name: Activate Coverage
+        run: dart pub global activate coverage
+
+      # Run coverage
+      - name: Run Coverage
+        run: dart pub global run coverage:test_with_coverage
+      
+      # Code coverage
+      - uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: ./coverage
+

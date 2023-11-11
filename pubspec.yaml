@@ -1,5 +1,5 @@
 name: edwards25519
-description: ed25519, where security meets simplicity in cryptography!!
+description: edwards25519, where security meets simplicity in cryptography!!
 version: 1.0.1
 repository: https://github.com/justkawal/edwards25519
 
