@@ -77,7 +77,8 @@ final dalekScalarBasepoint = Point.zero()
 
 // generate random bytes
 Uint8List generateRandomBytes(int length) {
-  return Uint8List.fromList(List<int>.generate(length, (_) => Random().nextInt(256)));
+  return Uint8List.fromList(
+      List<int>.generate(length, (_) => Random().nextInt(256)));
 }
 
 final scOneBytes = List.generate(32, (index) => index == 0 ? 1 : 0);
