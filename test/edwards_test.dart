@@ -259,7 +259,7 @@ void main() {
       (
         "y=p+10,sign-",
         "f7ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-        "0a0000000000000000000000000000000000000000000000000000000000080",
+        "0a00000000000000000000000000000000000000000000000000000000000080",
       ),
 
       // p+11 is not a valid y-coordinate.

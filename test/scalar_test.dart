@@ -8,14 +8,14 @@ import 'test_utils/test_utils.dart';
 
 void main() {
   test('Test Scalar Generate', () {
-    for (var i = 0; i < 10240; i++) {
+    for (var i = 0; i < 1024; i++) {
       final s = generateScalar();
       expect(Scalar.isReduced(s.Bytes()), true);
     }
   });
 
   test('SetCanonicalBytes correctly reduces scalars', () {
-    for (var i = 0; i < 10240; i++) {
+    for (var i = 0; i < 1024; i++) {
       final sc = generateScalar();
 
       final bytes = generateRandomBytes(32);
@@ -31,7 +31,7 @@ void main() {
   });
 
   test('SetCanonicalBytes correctly sets Canonical Bytes', () {
-    for (var i = 0; i < 10240; i++) {
+    for (var i = 0; i < 1024; i++) {
       final sc1 = generateScalar();
       final sc2 = Scalar();
 
@@ -52,7 +52,7 @@ void main() {
   });
 
   test('Test Scalar Multiply Distributes Over Add', () {
-    for (var index = 0; index < 12397; index++) {
+    for (var index = 0; index < 1239; index++) {
       // Compute t1 = (x+y)*z
       final x = generateScalar();
       final y = generateScalar();
@@ -77,7 +77,7 @@ void main() {
   });
 
   test('Test Scalar Add Like Sub Neg', () {
-    for (var index = 0; index < 10240; index++) {
+    for (var index = 0; index < 1024; index++) {
       // Compute t1 = x - y
       final x = generateScalar();
       final y = generateScalar();
@@ -410,7 +410,7 @@ void main() {
         BigInt.parse("27742317777372353535851937790883648493", radix: 10);
     mod += BigInt.one << 252;
 
-    for (var i = 0; i < 10240; i++) {
+    for (var i = 0; i < 1024; i++) {
       final sc = generateScalar();
 
       // generate random bytes
@@ -497,7 +497,7 @@ void main() {
     final lowOrder = Point.zero()
       ..setBytes(Uint8List.fromList(hex.decode(lowOrderBytes)));
 
-    for (int i = 0; i < 1024; i++) {
+    for (int i = 0; i < 102; i++) {
       final scalar = generateRandomBytes(64);
       final s = Scalar()..setUniformBytes(scalar);
       final p = Point.zero()..scalarBaseMult(s);

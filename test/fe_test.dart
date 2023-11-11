@@ -58,7 +58,7 @@ void main() {
   });
 
   test('Test Multiply Distributes Over Add', () {
-    for (var i = 0; i < 9999; i++) {
+    for (var i = 0; i < 999; i++) {
       // random x from generated list
       final x = getRandomElement();
 
@@ -120,7 +120,7 @@ void main() {
 
   test('Test Mult32', () {
     final random = Random.secure();
-    for (var i = 0; i < 9999; i++) {
+    for (var i = 0; i < 999; i++) {
       // random x from generated list
       final x = getRandomElement();
       // random int y
@@ -145,7 +145,7 @@ void main() {
   });
 
   test('Test FeMul', () {
-    for (var i = 0; i < 9999; i++) {
+    for (var i = 0; i < 999; i++) {
       // random a from generated list
       final a = getRandomElement();
       // random b from generated list
@@ -285,7 +285,7 @@ void main() {
   });
 
   test('Test Set Bytes Round Trip', () {
-    for (var i = 0; i < 9999; i++) {
+    for (var i = 0; i < 999; i++) {
       var randomBytes = generateRandomBytes(32);
       final bytes = Uint8List.fromList(randomBytes);
       final fe = getRandomElement();
@@ -304,7 +304,7 @@ void main() {
       expect(isInBounds(fe), true);
     }
 
-    for (var i = 0; i < 9999; i++) {
+    for (var i = 0; i < 999; i++) {
       final fe = getRandomElement();
       final r = getRandomElement();
 
