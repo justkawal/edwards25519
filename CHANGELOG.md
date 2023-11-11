@@ -6,3 +6,6 @@
 
 ## 1.0.2
 - Added Codecov
+
+## 1.0.3
+- Update ReadMe
