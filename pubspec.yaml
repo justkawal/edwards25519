@@ -1,6 +1,6 @@
 name: edwards25519
 description: edwards25519, where security meets simplicity in cryptography!!
-version: 1.0.2
+version: 1.0.3
 repository: https://github.com/justkawal/edwards25519
 
 environment:
