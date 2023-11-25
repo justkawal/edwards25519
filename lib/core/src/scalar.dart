@@ -13,8 +13,7 @@ part of edwards25519;
 class Scalar {
   /// s is the scalar in the Montgomery domain, in the format of the
   /// fiat-crypto implementation.
-  final fiatScalarMontgomeryDomainFieldElement s =
-      List.generate(4, (_) => BigInt.zero, growable: false);
+  final List<BigInt> s = List.generate(4, (_) => BigInt.zero, growable: false);
 
   Scalar.parametrized(List<BigInt> arg) {
     s[0] = arg[0];
@@ -112,20 +111,20 @@ class Scalar {
   /// fiatScalarMontgomeryDomainFieldElement, which is a little-endian 4-limb value
   /// in the 2^256 Montgomery domain.
   static final scalarTwo168 = Scalar.parametrized(<BigInt>[
-    '5b8ab432eac74798'.toBigInt(16),
-    '38afddd6de59d5d7'.toBigInt(16),
-    'a2c131b399411b7c'.toBigInt(16),
-    '6329a7ed9ce5a30'.toBigInt(16),
+    '6596282735017805720'.toBigInt(),
+    '4084727301971498455'.toBigInt(),
+    '11727709552089570172'.toBigInt(),
+    '446589182673836592'.toBigInt(),
   ]);
 
   /// scalarTwo168 and scalarTwo336 are 2^168 and 2^336 modulo l, encoded as a
   /// fiatScalarMontgomeryDomainFieldElement, which is a little-endian 4-limb value
   /// in the 2^256 Montgomery domain.
   static final scalarTwo336 = Scalar.parametrized(<BigInt>[
-    'bd3d108e2b35ecc5'.toBigInt(16),
-    '5c3a3718bdf9c90b'.toBigInt(16),
-    '63aa97a331b4f2ee'.toBigInt(16),
-    '3d217f5be65cb5c'.toBigInt(16),
+    '13636073449544084677'.toBigInt(),
+    '6645684779544594699'.toBigInt(),
+    '7181719282965082862'.toBigInt(),
+    '275308871451790172'.toBigInt(),
   ]);
 
   /// setShortBytes sets s = x mod l, where x is a little-endian integer shorter
@@ -136,7 +135,7 @@ class Scalar {
           'edwards25519: internal error: setShortBytes called with a long string');
     }
 
-    List<int> buf = List<int>.filled(32, 0, growable: false);
+    final Uint8List buf = Uint8List(32);
     buf.setAll(0, x);
     fiatScalarFromBytes(s, buf);
     fiatScalarToMontgomery(s, s);
@@ -250,8 +249,8 @@ class Scalar {
   }
 
   Uint8List bytes(Uint8List out) {
-    final fiatScalarNonMontgomeryDomainFieldElement ss =
-        List.filled(4, BigInt.zero, growable: false);
+    final List<BigInt> ss =
+        List.generate(4, (_) => BigInt.zero, growable: false);
     fiatScalarFromMontgomery(ss, s);
     fiatScalarToBytes(out, ss);
     return out;
@@ -259,8 +258,7 @@ class Scalar {
 
   /// Equal returns 1 if s and t are equal, and 0 otherwise.
   int equal(Scalar t) {
-    final fiatScalarMontgomeryDomainFieldElement diff =
-        List.filled(4, BigInt.zero, growable: false);
+    final List<BigInt> diff = List.filled(4, BigInt.zero, growable: false);
     fiatScalarSub(diff, s, t.s);
     BigInt nonzero = fiatScalarNonzero(diff);
     nonzero |= nonzero >> 32;
@@ -378,7 +376,7 @@ class Scalar {
 
   /// Given k > 0, set s = s**(2*k).
   void pow2k(int k) {
-    for (var i = 0; i < k; i++) {
+    for (int i = 0; i < k; i++) {
       multiply(this, this);
     }
   }
@@ -392,7 +390,7 @@ class Scalar {
     Scalar tt = Scalar();
     tt.multiply(t, t);
     table[0] = Scalar.from(t);
-    for (var i = 0; i < 7; i++) {
+    for (int i = 0; i < 7; i++) {
       table[i + 1].multiply(table[i], tt);
     }
     // Now table = [t**1, t**3, t**5, t**7, t**9, t**11, t**13, t**15]

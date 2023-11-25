@@ -1,18 +1,5 @@
 part of edwards25519;
 
-typedef fiatScalarUint1 = BigInt;
-// We use uint64 instead of a more narrow type for performance reasons; see https://github.com/mit-plv/fiat-crypto/pull/1006#issuecomment-892625927
-
-/// The type fiatScalarMontgomeryDomainFieldElement is a field element in the Montgomery domain.
-///
-/// Bounds: [[0x0 ~> 0xffffffffffffffff], [0x0 ~> 0xffffffffffffffff], [0x0 ~> 0xffffffffffffffff], [0x0 ~> 0xffffffffffffffff]]
-typedef fiatScalarMontgomeryDomainFieldElement = List<BigInt>;
-
-/// The type fiatScalarNonMontgomeryDomainFieldElement is a field element NOT in the Montgomery domain.
-///
-/// Bounds: [[0x0 ~> 0xffffffffffffffff], [0x0 ~> 0xffffffffffffffff], [0x0 ~> 0xffffffffffffffff], [0x0 ~> 0xffffffffffffffff]]
-typedef fiatScalarNonMontgomeryDomainFieldElement = List<BigInt>;
-
 /// fiatScalarCmovznzU64 is a single-word conditional move.
 ///
 /// Postconditions:
@@ -39,14 +26,11 @@ BigInt fiatScalarCmovznzU64(BigInt arg1, BigInt arg2, BigInt arg3) {
 ///   eval (from_montgomery out1) mod m = (eval (from_montgomery arg1) * eval (from_montgomery arg2)) mod m
 ///   0 ≤ eval out1 < m
 ///
-void fiatScalarMul(
-    fiatScalarMontgomeryDomainFieldElement out1,
-    fiatScalarMontgomeryDomainFieldElement arg1,
-    fiatScalarMontgomeryDomainFieldElement arg2) {
-  final x1 = arg1[1];
-  final x2 = arg1[2];
-  final x3 = arg1[3];
-  final x4 = arg1[0];
+void fiatScalarMul(List<BigInt> out1, List<BigInt> arg1, List<BigInt> arg2) {
+  final BigInt x1 = arg1[1];
+  final BigInt x2 = arg1[2];
+  final BigInt x3 = arg1[3];
+  final BigInt x4 = arg1[0];
 
   final (BigInt x6, BigInt x5) = Bits.mul64(x4, arg2[3]);
 
@@ -64,16 +48,16 @@ void fiatScalarMul(
 
   final BigInt x19 = (x18.toBigInt + x6);
 
-  final (_, BigInt x20) = Bits.mul64(x11, 'd2b51da312547e1b'.toBigInt(16));
+  final (_, BigInt x20) = Bits.mul64(x11, '15183074304973897243'.toBigInt());
 
   final (BigInt x23, BigInt x22) =
-      Bits.mul64(x20, '1000000000000000'.toBigInt(16));
+      Bits.mul64(x20, '1152921504606846976'.toBigInt());
 
   final (BigInt x25, BigInt x24) =
-      Bits.mul64(x20, '14def9dea2f79cd6'.toBigInt(16));
+      Bits.mul64(x20, '1503914060200516822'.toBigInt());
 
   final (BigInt x27, BigInt x26) =
-      Bits.mul64(x20, '5812631a5cf5d3ed'.toBigInt(16));
+      Bits.mul64(x20, '6346243789798364141'.toBigInt());
 
   final (BigInt x28, int x29) = Bits.add64(x27, x24, 0);
 
@@ -114,16 +98,16 @@ void fiatScalarMul(
 
   final (BigInt x64, int x65) = Bits.add64(x40.toBigInt, x55, x63);
 
-  final (_, BigInt x66) = Bits.mul64(x56, 'd2b51da312547e1b'.toBigInt(16));
+  final (_, BigInt x66) = Bits.mul64(x56, '15183074304973897243'.toBigInt());
 
   final (BigInt x69, BigInt x68) =
-      Bits.mul64(x66, '1000000000000000'.toBigInt(16));
+      Bits.mul64(x66, '1152921504606846976'.toBigInt());
 
   final (BigInt x71, BigInt x70) =
-      Bits.mul64(x66, '14def9dea2f79cd6'.toBigInt(16));
+      Bits.mul64(x66, '1503914060200516822'.toBigInt());
 
   final (BigInt x73, BigInt x72) =
-      Bits.mul64(x66, '5812631a5cf5d3ed'.toBigInt(16));
+      Bits.mul64(x66, '6346243789798364141'.toBigInt());
 
   final (BigInt x74, int x75) = Bits.add64(x73, x70, 0);
   final x76 = (x75.toBigInt + x71);
@@ -164,16 +148,16 @@ void fiatScalarMul(
 
   final (BigInt x111, int x112) = Bits.add64(x87, x102, x110);
 
-  final (_, BigInt x113) = Bits.mul64(x103, 'd2b51da312547e1b'.toBigInt(16));
+  final (_, BigInt x113) = Bits.mul64(x103, '15183074304973897243'.toBigInt());
 
   final (BigInt x116, BigInt x115) =
-      Bits.mul64(x113, '1000000000000000'.toBigInt(16));
+      Bits.mul64(x113, '1152921504606846976'.toBigInt());
 
   final (BigInt x118, BigInt x117) =
-      Bits.mul64(x113, '14def9dea2f79cd6'.toBigInt(16));
+      Bits.mul64(x113, '1503914060200516822'.toBigInt());
 
   final (BigInt x120, BigInt x119) =
-      Bits.mul64(x113, '5812631a5cf5d3ed'.toBigInt(16));
+      Bits.mul64(x113, '6346243789798364141'.toBigInt());
 
   final (BigInt x121, int x122) = Bits.add64(x120, x117, 0);
   final x123 = (x122.toBigInt + x118);
@@ -214,16 +198,16 @@ void fiatScalarMul(
 
   final (BigInt x158, int x159) = Bits.add64(x134.toBigInt, x149, x157);
 
-  final (_, BigInt x160) = Bits.mul64(x150, 'd2b51da312547e1b'.toBigInt(16));
+  final (_, BigInt x160) = Bits.mul64(x150, '15183074304973897243'.toBigInt());
 
   final (BigInt x163, BigInt x162) =
-      Bits.mul64(x160, '1000000000000000'.toBigInt(16));
+      Bits.mul64(x160, '1152921504606846976'.toBigInt());
 
   final (BigInt x165, BigInt x164) =
-      Bits.mul64(x160, '14def9dea2f79cd6'.toBigInt(16));
+      Bits.mul64(x160, '1503914060200516822'.toBigInt());
 
   final (BigInt x167, BigInt x166) =
-      Bits.mul64(x160, '5812631a5cf5d3ed'.toBigInt(16));
+      Bits.mul64(x160, '6346243789798364141'.toBigInt());
 
   final (BigInt x168, int x169) = Bits.add64(x167, x164, 0);
   final x170 = (x169.toBigInt + x165);
@@ -240,15 +224,15 @@ void fiatScalarMul(
   final x181 = (x180 + x159);
 
   final (BigInt x182, int x183) =
-      Bits.sub64(x173, '5812631a5cf5d3ed'.toBigInt(16), 0);
+      Bits.sub64(x173, '6346243789798364141'.toBigInt(), 0);
 
   final (BigInt x184, int x185) =
-      Bits.sub64(x175, '14def9dea2f79cd6'.toBigInt(16), x183);
+      Bits.sub64(x175, '1503914060200516822'.toBigInt(), x183);
 
   final (BigInt x186, int x187) = Bits.sub64(x177, BigInt.zero, x185);
 
   final (BigInt x188, int x189) =
-      Bits.sub64(x179, '1000000000000000'.toBigInt(16), x187);
+      Bits.sub64(x179, '1152921504606846976'.toBigInt(), x187);
 
   final (_, int x191) = Bits.sub64(x181.toBigInt, BigInt.zero, x189);
   final BigInt x192 = fiatScalarCmovznzU64(x191.toBigInt, x182, x173);
@@ -269,10 +253,7 @@ void fiatScalarMul(
 /// Postconditions:
 ///   eval (from_montgomery out1) mod m = (eval (from_montgomery arg1) + eval (from_montgomery arg2)) mod m
 ///   0 ≤ eval out1 < m
-void fiatScalarAdd(
-    fiatScalarMontgomeryDomainFieldElement out1,
-    fiatScalarMontgomeryDomainFieldElement arg1,
-    fiatScalarMontgomeryDomainFieldElement arg2) {
+void fiatScalarAdd(List<BigInt> out1, List<BigInt> arg1, List<BigInt> arg2) {
   final (BigInt x1, int x2) = Bits.add64(arg1[0], arg2[0], 0);
 
   final (BigInt x3, int x4) = Bits.add64(arg1[1], arg2[1], x2);
@@ -282,25 +263,25 @@ void fiatScalarAdd(
   final (BigInt x7, int x8) = Bits.add64(arg1[3], arg2[3], x6);
 
   final (BigInt x9, int x10) =
-      Bits.sub64(x1, '5812631a5cf5d3ed'.toBigInt(16), 0);
+      Bits.sub64(x1, '6346243789798364141'.toBigInt(), 0);
 
   final (BigInt x11, int x12) =
-      Bits.sub64(x3, '14def9dea2f79cd6'.toBigInt(16), x10);
+      Bits.sub64(x3, '1503914060200516822'.toBigInt(), x10);
 
   final (BigInt x13, int x14) = Bits.sub64(x5, BigInt.zero, x12);
 
   final (BigInt x15, int x16) =
-      Bits.sub64(x7, '1000000000000000'.toBigInt(16), x14);
+      Bits.sub64(x7, '1152921504606846976'.toBigInt(), x14);
 
   final (_, int x18) = Bits.sub64(x8.toBigInt, BigInt.zero, x16);
 
-  final x19 = fiatScalarCmovznzU64(x18.toBigInt, x9, x1);
+  final BigInt x19 = fiatScalarCmovznzU64(x18.toBigInt, x9, x1);
 
-  final x20 = fiatScalarCmovznzU64(x18.toBigInt, x11, x3);
+  final BigInt x20 = fiatScalarCmovznzU64(x18.toBigInt, x11, x3);
 
-  final x21 = fiatScalarCmovznzU64(x18.toBigInt, x13, x5);
+  final BigInt x21 = fiatScalarCmovznzU64(x18.toBigInt, x13, x5);
 
-  final x22 = fiatScalarCmovznzU64(x18.toBigInt, x15, x7);
+  final BigInt x22 = fiatScalarCmovznzU64(x18.toBigInt, x15, x7);
   out1[0] = x19;
   out1[1] = x20;
   out1[2] = x21;
@@ -315,10 +296,7 @@ void fiatScalarAdd(
 /// Postconditions:
 ///   eval (from_montgomery out1) mod m = (eval (from_montgomery arg1) - eval (from_montgomery arg2)) mod m
 ///   0 ≤ eval out1 < m
-void fiatScalarSub(
-    fiatScalarMontgomeryDomainFieldElement out1,
-    fiatScalarMontgomeryDomainFieldElement arg1,
-    fiatScalarMontgomeryDomainFieldElement arg2) {
+void fiatScalarSub(List<BigInt> out1, List<BigInt> arg1, List<BigInt> arg2) {
   final (BigInt x1, int x2) = Bits.sub64(arg1[0], arg2[0], 0);
 
   final (BigInt x3, int x4) = Bits.sub64(arg1[1], arg2[1], x2);
@@ -328,18 +306,18 @@ void fiatScalarSub(
   final (BigInt x7, int x8) = Bits.sub64(arg1[3], arg2[3], x6);
 
   final x9 = fiatScalarCmovznzU64(
-      x8.toBigInt, BigInt.zero, 'ffffffffffffffff'.toBigInt(16));
+      x8.toBigInt, BigInt.zero, '18446744073709551615'.toBigInt());
 
   final (BigInt x10, int x11) =
-      Bits.add64(x1, (x9 & '5812631a5cf5d3ed'.toBigInt(16)), 0);
+      Bits.add64(x1, (x9 & '6346243789798364141'.toBigInt()), 0);
 
   final (BigInt x12, int x13) =
-      Bits.add64(x3, (x9 & '14def9dea2f79cd6'.toBigInt(16)), x11);
+      Bits.add64(x3, (x9 & '1503914060200516822'.toBigInt()), x11);
 
   final (BigInt x14, int x15) = Bits.add64(x5, BigInt.zero, x13);
 
   final (BigInt x16, int _) =
-      Bits.add64(x7, (x9 & '1000000000000000'.toBigInt(16)), x15);
+      Bits.add64(x7, (x9 & '1152921504606846976'.toBigInt()), x15);
 
   out1[0] = x10;
   out1[1] = x12;
@@ -355,8 +333,7 @@ void fiatScalarSub(
 ///   eval (from_montgomery out1) mod m = -eval (from_montgomery arg1) mod m
 ///   0 ≤ eval out1 < m
 ///
-void fiatScalarOpp(fiatScalarMontgomeryDomainFieldElement out1,
-    fiatScalarMontgomeryDomainFieldElement arg1) {
+void fiatScalarOpp(List<BigInt> out1, List<BigInt> arg1) {
   final (BigInt x1, int x2) = Bits.sub64(BigInt.zero, arg1[0], 0);
 
   final (BigInt x3, int x4) = Bits.sub64(BigInt.zero, arg1[1], x2);
@@ -365,19 +342,19 @@ void fiatScalarOpp(fiatScalarMontgomeryDomainFieldElement out1,
 
   final (BigInt x7, int x8) = Bits.sub64(BigInt.zero, arg1[3], x6);
 
-  final x9 = fiatScalarCmovznzU64(
-      x8.toBigInt, BigInt.zero, 'ffffffffffffffff'.toBigInt(16));
+  final BigInt x9 = fiatScalarCmovznzU64(
+      x8.toBigInt, BigInt.zero, '18446744073709551615'.toBigInt());
 
   final (BigInt x10, int x11) =
-      Bits.add64(x1, (x9 & '5812631a5cf5d3ed'.toBigInt(16)), 0);
+      Bits.add64(x1, (x9 & '6346243789798364141'.toBigInt()), 0);
 
   final (BigInt x12, int x13) =
-      Bits.add64(x3, (x9 & '14def9dea2f79cd6'.toBigInt(16)), x11);
+      Bits.add64(x3, (x9 & '1503914060200516822'.toBigInt()), x11);
 
   final (BigInt x14, int x15) = Bits.add64(x5, BigInt.zero, x13);
 
   final (BigInt x16, int _) =
-      Bits.add64(x7, (x9 & '1000000000000000'.toBigInt(16)), x15);
+      Bits.add64(x7, (x9 & '1152921504606846976'.toBigInt()), x15);
   out1[0] = x10;
   out1[1] = x12;
   out1[2] = x14;
@@ -406,20 +383,19 @@ BigInt fiatScalarNonzero(List<BigInt> arg1) {
 /// Postconditions:
 ///   eval out1 mod m = (eval arg1 * ((2^64)⁻¹ mod m)^4) mod m
 ///   0 ≤ eval out1 < m
-void fiatScalarFromMontgomery(fiatScalarNonMontgomeryDomainFieldElement out1,
-    fiatScalarMontgomeryDomainFieldElement arg1) {
-  final x1 = arg1[0];
+void fiatScalarFromMontgomery(List<BigInt> out1, List<BigInt> arg1) {
+  final BigInt x1 = arg1[0];
 
-  final (_, BigInt x2) = Bits.mul64(x1, 'd2b51da312547e1b'.toBigInt(16));
+  final (_, BigInt x2) = Bits.mul64(x1, '15183074304973897243'.toBigInt());
 
   final (BigInt x5, BigInt x4) =
-      Bits.mul64(x2, '1000000000000000'.toBigInt(16));
+      Bits.mul64(x2, '1152921504606846976'.toBigInt());
 
   final (BigInt x7, BigInt x6) =
-      Bits.mul64(x2, '14def9dea2f79cd6'.toBigInt(16));
+      Bits.mul64(x2, '1503914060200516822'.toBigInt());
 
   final (BigInt x9, BigInt x8) =
-      Bits.mul64(x2, '5812631a5cf5d3ed'.toBigInt(16));
+      Bits.mul64(x2, '6346243789798364141'.toBigInt());
 
   final (BigInt x10, int x11) = Bits.add64(x9, x6, 0);
 
@@ -429,16 +405,16 @@ void fiatScalarFromMontgomery(fiatScalarNonMontgomeryDomainFieldElement out1,
 
   final (BigInt x16, int x17) = Bits.add64(x14, arg1[1], 0);
 
-  final (_, BigInt x18) = Bits.mul64(x16, 'd2b51da312547e1b'.toBigInt(16));
+  final (_, BigInt x18) = Bits.mul64(x16, '15183074304973897243'.toBigInt());
 
   final (BigInt x21, BigInt x20) =
-      Bits.mul64(x18, '1000000000000000'.toBigInt(16));
+      Bits.mul64(x18, '1152921504606846976'.toBigInt());
 
   final (BigInt x23, BigInt x22) =
-      Bits.mul64(x18, '14def9dea2f79cd6'.toBigInt(16));
+      Bits.mul64(x18, '1503914060200516822'.toBigInt());
 
   final (BigInt x25, BigInt x24) =
-      Bits.mul64(x18, '5812631a5cf5d3ed'.toBigInt(16));
+      Bits.mul64(x18, '6346243789798364141'.toBigInt());
 
   final (BigInt x26, int x27) = Bits.add64(x25, x22, 0);
 
@@ -457,16 +433,16 @@ void fiatScalarFromMontgomery(fiatScalarNonMontgomeryDomainFieldElement out1,
 
   final (BigInt x40, int x41) = Bits.add64(x34, BigInt.zero, x39);
 
-  final (_, BigInt x42) = Bits.mul64(x36, 'd2b51da312547e1b'.toBigInt(16));
+  final (_, BigInt x42) = Bits.mul64(x36, '15183074304973897243'.toBigInt());
 
   final (BigInt x45, BigInt x44) =
-      Bits.mul64(x42, '1000000000000000'.toBigInt(16));
+      Bits.mul64(x42, '1152921504606846976'.toBigInt());
 
   final (BigInt x47, BigInt x46) =
-      Bits.mul64(x42, '14def9dea2f79cd6'.toBigInt(16));
+      Bits.mul64(x42, '1503914060200516822'.toBigInt());
 
   final (BigInt x49, BigInt x48) =
-      Bits.mul64(x42, '5812631a5cf5d3ed'.toBigInt(16));
+      Bits.mul64(x42, '6346243789798364141'.toBigInt());
 
   final (BigInt x50, int x51) = Bits.add64(x49, x46, 0);
 
@@ -485,16 +461,16 @@ void fiatScalarFromMontgomery(fiatScalarNonMontgomeryDomainFieldElement out1,
 
   final (BigInt x64, int x65) = Bits.add64(x58, BigInt.zero, x63);
 
-  final (_, BigInt x66) = Bits.mul64(x60, 'd2b51da312547e1b'.toBigInt(16));
+  final (_, BigInt x66) = Bits.mul64(x60, '15183074304973897243'.toBigInt());
 
   final (BigInt x69, BigInt x68) =
-      Bits.mul64(x66, '1000000000000000'.toBigInt(16));
+      Bits.mul64(x66, '1152921504606846976'.toBigInt());
 
   final (BigInt x71, BigInt x70) =
-      Bits.mul64(x66, '14def9dea2f79cd6'.toBigInt(16));
+      Bits.mul64(x66, '1503914060200516822'.toBigInt());
 
   final (BigInt x73, BigInt x72) =
-      Bits.mul64(x66, '5812631a5cf5d3ed'.toBigInt(16));
+      Bits.mul64(x66, '6346243789798364141'.toBigInt());
 
   final (BigInt x74, int x75) = Bits.add64(x73, x70, 0);
 
@@ -509,25 +485,25 @@ void fiatScalarFromMontgomery(fiatScalarNonMontgomeryDomainFieldElement out1,
   final x84 = (x83.toBigInt + x69);
 
   final (BigInt x85, int x86) =
-      Bits.sub64(x78, '5812631a5cf5d3ed'.toBigInt(16), 0);
+      Bits.sub64(x78, '6346243789798364141'.toBigInt(), 0);
 
   final (BigInt x87, int x88) =
-      Bits.sub64(x80, '14def9dea2f79cd6'.toBigInt(16), x86);
+      Bits.sub64(x80, '1503914060200516822'.toBigInt(), x86);
 
   final (BigInt x89, int x90) = Bits.sub64(x82, BigInt.zero, x88);
 
   final (BigInt x91, int x92) =
-      Bits.sub64(x84, '1000000000000000'.toBigInt(16), x90);
+      Bits.sub64(x84, '1152921504606846976'.toBigInt(), x90);
 
   final (_, int x94) = Bits.sub64(BigInt.zero, BigInt.zero, x92);
 
-  final x95 = fiatScalarCmovznzU64(x94.toBigInt, x85, x78);
+  final BigInt x95 = fiatScalarCmovznzU64(x94.toBigInt, x85, x78);
 
-  final x96 = fiatScalarCmovznzU64(x94.toBigInt, x87, x80);
+  final BigInt x96 = fiatScalarCmovznzU64(x94.toBigInt, x87, x80);
 
-  final x97 = fiatScalarCmovznzU64(x94.toBigInt, x89, x82);
+  final BigInt x97 = fiatScalarCmovznzU64(x94.toBigInt, x89, x82);
 
-  final x98 = fiatScalarCmovznzU64(x94.toBigInt, x91, x84);
+  final BigInt x98 = fiatScalarCmovznzU64(x94.toBigInt, x91, x84);
 
   out1[0] = x95;
   out1[1] = x96;
@@ -543,23 +519,23 @@ void fiatScalarFromMontgomery(fiatScalarNonMontgomeryDomainFieldElement out1,
 ///   eval (from_montgomery out1) mod m = eval arg1 mod m
 ///   0 ≤ eval out1 < m
 ///
-void fiatScalarToMontgomery(fiatScalarMontgomeryDomainFieldElement out1,
-    fiatScalarNonMontgomeryDomainFieldElement arg1) {
+void fiatScalarToMontgomery(List<BigInt> out1, List<BigInt> arg1) {
   final BigInt x1 = arg1[1];
   final BigInt x2 = arg1[2];
   final BigInt x3 = arg1[3];
   final BigInt x4 = arg1[0];
 
-  final (BigInt x6, BigInt x5) = Bits.mul64(x4, '399411b7c309a3d'.toBigInt(16));
+  final (BigInt x6, BigInt x5) =
+      Bits.mul64(x4, '259310039853996605'.toBigInt());
 
   final (BigInt x8, BigInt x7) =
-      Bits.mul64(x4, 'ceec73d217f5be65'.toBigInt(16));
+      Bits.mul64(x4, '14910419812499177061'.toBigInt());
 
   final (BigInt x10, BigInt x9) =
-      Bits.mul64(x4, 'd00e1ba768859347'.toBigInt(16));
+      Bits.mul64(x4, '14991950615390032711'.toBigInt());
 
   final (BigInt x12, BigInt x11) =
-      Bits.mul64(x4, 'a40611e3449c0f01'.toBigInt(16));
+      Bits.mul64(x4, '11819153939886771969'.toBigInt());
 
   final (BigInt x13, int x14) = Bits.add64(x12, x9, 0);
 
@@ -567,16 +543,16 @@ void fiatScalarToMontgomery(fiatScalarMontgomeryDomainFieldElement out1,
 
   final (BigInt x17, int x18) = Bits.add64(x8, x5, x16);
 
-  final (_, BigInt x19) = Bits.mul64(x11, 'd2b51da312547e1b'.toBigInt(16));
+  final (_, BigInt x19) = Bits.mul64(x11, '15183074304973897243'.toBigInt());
 
   final (BigInt x22, BigInt x21) =
-      Bits.mul64(x19, '1000000000000000'.toBigInt(16));
+      Bits.mul64(x19, '1152921504606846976'.toBigInt());
 
   final (BigInt x24, BigInt x23) =
-      Bits.mul64(x19, '14def9dea2f79cd6'.toBigInt(16));
+      Bits.mul64(x19, '1503914060200516822'.toBigInt());
 
   final (BigInt x26, BigInt x25) =
-      Bits.mul64(x19, '5812631a5cf5d3ed'.toBigInt(16));
+      Bits.mul64(x19, '6346243789798364141'.toBigInt());
 
   final (BigInt x27, int x28) = Bits.add64(x26, x23, 0);
 
@@ -589,16 +565,16 @@ void fiatScalarToMontgomery(fiatScalarMontgomeryDomainFieldElement out1,
   final (BigInt x35, int x36) = Bits.add64(x17, x21, x34);
 
   final (BigInt x38, BigInt x37) =
-      Bits.mul64(x1, '399411b7c309a3d'.toBigInt(16));
+      Bits.mul64(x1, '259310039853996605'.toBigInt());
 
   final (BigInt x40, BigInt x39) =
-      Bits.mul64(x1, 'ceec73d217f5be65'.toBigInt(16));
+      Bits.mul64(x1, '14910419812499177061'.toBigInt());
 
   final (BigInt x42, BigInt x41) =
-      Bits.mul64(x1, 'd00e1ba768859347'.toBigInt(16));
+      Bits.mul64(x1, '14991950615390032711'.toBigInt());
 
   final (BigInt x44, BigInt x43) =
-      Bits.mul64(x1, 'a40611e3449c0f01'.toBigInt(16));
+      Bits.mul64(x1, '11819153939886771969'.toBigInt());
 
   final (BigInt x45, int x46) = Bits.add64(x44, x41, 0);
 
@@ -615,16 +591,16 @@ void fiatScalarToMontgomery(fiatScalarMontgomeryDomainFieldElement out1,
   final (BigInt x57, int x58) =
       Bits.add64(((x36.toBigInt + (x18.toBigInt + x6)) + x22), x49, x56);
 
-  final (_, BigInt x59) = Bits.mul64(x51, 'd2b51da312547e1b'.toBigInt(16));
+  final (_, BigInt x59) = Bits.mul64(x51, '15183074304973897243'.toBigInt());
 
   final (BigInt x62, BigInt x61) =
-      Bits.mul64(x59, '1000000000000000'.toBigInt(16));
+      Bits.mul64(x59, '1152921504606846976'.toBigInt());
 
   final (BigInt x64, BigInt x63) =
-      Bits.mul64(x59, '14def9dea2f79cd6'.toBigInt(16));
+      Bits.mul64(x59, '1503914060200516822'.toBigInt());
 
   final (BigInt x66, BigInt x65) =
-      Bits.mul64(x59, '5812631a5cf5d3ed'.toBigInt(16));
+      Bits.mul64(x59, '6346243789798364141'.toBigInt());
 
   final (BigInt x67, int x68) = Bits.add64(x66, x63, 0);
 
@@ -637,16 +613,16 @@ void fiatScalarToMontgomery(fiatScalarMontgomeryDomainFieldElement out1,
   final (BigInt x75, int x76) = Bits.add64(x57, x61, x74);
 
   final (BigInt x78, BigInt x77) =
-      Bits.mul64(x2, '399411b7c309a3d'.toBigInt(16));
+      Bits.mul64(x2, '259310039853996605'.toBigInt());
 
   final (BigInt x80, BigInt x79) =
-      Bits.mul64(x2, 'ceec73d217f5be65'.toBigInt(16));
+      Bits.mul64(x2, '14910419812499177061'.toBigInt());
 
   final (BigInt x82, BigInt x81) =
-      Bits.mul64(x2, 'd00e1ba768859347'.toBigInt(16));
+      Bits.mul64(x2, '14991950615390032711'.toBigInt());
 
   final (BigInt x84, BigInt x83) =
-      Bits.mul64(x2, 'a40611e3449c0f01'.toBigInt(16));
+      Bits.mul64(x2, '11819153939886771969'.toBigInt());
 
   final (BigInt x85, int x86) = Bits.add64(x84, x81, 0);
 
@@ -663,16 +639,16 @@ void fiatScalarToMontgomery(fiatScalarMontgomeryDomainFieldElement out1,
   final (BigInt x97, int x98) = Bits.add64(
       ((x76.toBigInt + (x58.toBigInt + (x50.toBigInt + x38))) + x62), x89, x96);
 
-  final (_, BigInt x99) = Bits.mul64(x91, 'd2b51da312547e1b'.toBigInt(16));
+  final (_, BigInt x99) = Bits.mul64(x91, '15183074304973897243'.toBigInt());
 
   final (BigInt x102, BigInt x101) =
-      Bits.mul64(x99, '1000000000000000'.toBigInt(16));
+      Bits.mul64(x99, '1152921504606846976'.toBigInt());
 
   final (BigInt x104, BigInt x103) =
-      Bits.mul64(x99, '14def9dea2f79cd6'.toBigInt(16));
+      Bits.mul64(x99, '1503914060200516822'.toBigInt());
 
   final (BigInt x106, BigInt x105) =
-      Bits.mul64(x99, '5812631a5cf5d3ed'.toBigInt(16));
+      Bits.mul64(x99, '6346243789798364141'.toBigInt());
 
   final (BigInt x107, int x108) = Bits.add64(x106, x103, 0);
 
@@ -685,16 +661,16 @@ void fiatScalarToMontgomery(fiatScalarMontgomeryDomainFieldElement out1,
   final (BigInt x115, int x116) = Bits.add64(x97, x101, x114);
 
   final (BigInt x118, BigInt x117) =
-      Bits.mul64(x3, '399411b7c309a3d'.toBigInt(16));
+      Bits.mul64(x3, '259310039853996605'.toBigInt());
 
   final (BigInt x120, BigInt x119) =
-      Bits.mul64(x3, 'ceec73d217f5be65'.toBigInt(16));
+      Bits.mul64(x3, '14910419812499177061'.toBigInt());
 
   final (BigInt x122, BigInt x121) =
-      Bits.mul64(x3, 'd00e1ba768859347'.toBigInt(16));
+      Bits.mul64(x3, '14991950615390032711'.toBigInt());
 
   final (BigInt x124, BigInt x123) =
-      Bits.mul64(x3, 'a40611e3449c0f01'.toBigInt(16));
+      Bits.mul64(x3, '11819153939886771969'.toBigInt());
 
   final (BigInt x125, int x126) = Bits.add64(x124, x121, 0);
 
@@ -713,16 +689,16 @@ void fiatScalarToMontgomery(fiatScalarMontgomeryDomainFieldElement out1,
       x129,
       x136);
 
-  final (_, BigInt x139) = Bits.mul64(x131, 'd2b51da312547e1b'.toBigInt(16));
+  final (_, BigInt x139) = Bits.mul64(x131, '15183074304973897243'.toBigInt());
 
   final (BigInt x142, BigInt x141) =
-      Bits.mul64(x139, '1000000000000000'.toBigInt(16));
+      Bits.mul64(x139, '1152921504606846976'.toBigInt());
 
   final (BigInt x144, BigInt x143) =
-      Bits.mul64(x139, '14def9dea2f79cd6'.toBigInt(16));
+      Bits.mul64(x139, '1503914060200516822'.toBigInt());
 
   final (BigInt x146, BigInt x145) =
-      Bits.mul64(x139, '5812631a5cf5d3ed'.toBigInt(16));
+      Bits.mul64(x139, '6346243789798364141'.toBigInt());
 
   final (BigInt x147, int x148) = Bits.add64(x146, x143, 0);
 
@@ -738,25 +714,25 @@ void fiatScalarToMontgomery(fiatScalarMontgomeryDomainFieldElement out1,
       ((x156.toBigInt + (x138.toBigInt + (x130.toBigInt + x118))) + x142);
 
   final (BigInt x158, int x159) =
-      Bits.sub64(x151, '5812631a5cf5d3ed'.toBigInt(16), 0);
+      Bits.sub64(x151, '6346243789798364141'.toBigInt(), 0);
 
   final (BigInt x160, int x161) =
-      Bits.sub64(x153, '14def9dea2f79cd6'.toBigInt(16), x159);
+      Bits.sub64(x153, '1503914060200516822'.toBigInt(), x159);
 
   final (BigInt x162, int x163) = Bits.sub64(x155, BigInt.zero, x161);
 
   final (BigInt x164, int x165) =
-      Bits.sub64(x157, '1000000000000000'.toBigInt(16), x163);
+      Bits.sub64(x157, '1152921504606846976'.toBigInt(), x163);
 
   final (_, int x167) = Bits.sub64(BigInt.zero, BigInt.zero, x165);
 
-  final x168 = fiatScalarCmovznzU64(x167.toBigInt, x158, x151);
+  final BigInt x168 = fiatScalarCmovznzU64(x167.toBigInt, x158, x151);
 
-  final x169 = fiatScalarCmovznzU64(x167.toBigInt, x160, x153);
+  final BigInt x169 = fiatScalarCmovznzU64(x167.toBigInt, x160, x153);
 
-  final x170 = fiatScalarCmovznzU64(x167.toBigInt, x162, x155);
+  final BigInt x170 = fiatScalarCmovznzU64(x167.toBigInt, x162, x155);
 
-  final x171 = fiatScalarCmovznzU64(x167.toBigInt, x164, x157);
+  final BigInt x171 = fiatScalarCmovznzU64(x167.toBigInt, x164, x157);
   out1[0] = x168;
   out1[1] = x169;
   out1[2] = x170;

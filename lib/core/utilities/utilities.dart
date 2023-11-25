@@ -1,7 +1,7 @@
 part of edwards25519;
 
 bool checkOnCurve(List<Point> points) {
-  for (var i = 0; i < points.length; i++) {
+  for (int i = 0; i < points.length; i++) {
     final p = points[i];
     final Element XX = Element.feZero()..square(p.x);
     final Element YY = Element.feZero()..square(p.y);

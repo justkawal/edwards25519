@@ -89,7 +89,7 @@ final scMinusOne = Scalar()..setCanonicalBytes(Scalar.scalarMinusOneBytes);
 /// weighted towards high, low, and edge values.
 Scalar generateScalar() {
   final diceRoll = Random().nextInt(100);
-  var s = List<int>.filled(32, 0);
+  late List<int> s;
   switch (diceRoll) {
     case 0:
     case 1:
@@ -97,16 +97,17 @@ Scalar generateScalar() {
     case 2:
       s = List<int>.from(Scalar.scalarMinusOneBytes);
     default:
+      s = List<int>.filled(32, 0);
       if (diceRoll < 5) {
         // Generate a low scalar in [0, 2^125).
-        for (var i = 0; i < 16; i++) {
+        for (int i = 0; i < 16; i++) {
           s[i] = Random().nextInt(256);
         }
         s[15] &= (1 << 5) - 1;
       } else if (diceRoll < 10) {
         // Generate a high scalar in [2^252, 2^252 + 2^124).
         s[31] = 1 << 4;
-        for (var i = 0; i < 16; i++) {
+        for (int i = 0; i < 16; i++) {
           s[i] = Random().nextInt(256);
         }
         s[15] &= (1 << 4) - 1;
@@ -114,7 +115,7 @@ Scalar generateScalar() {
         // Generate a valid scalar in [0, l) by returning [0, 2^252) which has a
         // negligibly different distribution (the former has a 2^-127.6 chance
         // of being out of the latter range).
-        for (var i = 0; i < 32; i++) {
+        for (int i = 0; i < 32; i++) {
           s[i] = Random().nextInt(256);
         }
         s[31] &= (1 << 4) - 1;

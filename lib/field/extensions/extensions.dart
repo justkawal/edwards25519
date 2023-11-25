@@ -31,11 +31,12 @@ extension ListIntExtension on List<int> {
     for (int i = 0; i < length; i++) {
       result = (result << 8) | BigInt.from(this[i]);
     }
+
     return result;
   }
 }
 
 extension StringExtension on String {
   /// converts string to BigInt
-  BigInt toBigInt([int? radix]) => BigInt.parse(this, radix: radix);
+  BigInt toBigInt() => BigInt.parse(this);
 }

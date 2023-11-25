@@ -10,8 +10,8 @@ class affineLookupTable {
     // Goal: points[i] = (i+1)*Q, i.e., Q, 2Q, ..., 8Q
     // This allows lookup of -8Q, ..., -Q, 0, Q, ..., 8Q
     points[0].fromP3(q);
-    final tmpP3 = Point.zero();
-    final tmpP1xP1 = projP1xP1.zero();
+    final Point tmpP3 = Point.zero();
+    final projP1xP1 tmpP1xP1 = projP1xP1.zero();
     for (int i = 0; i < 7; i++) {
       // Compute (i+1)*Q as Q + i*Q and convert to AffineCached
       points[i + 1].fromP3(tmpP3..fromP1xP1(tmpP1xP1..addAffine(q, points[i])));
@@ -21,13 +21,13 @@ class affineLookupTable {
   // Set dest to x*Q, where -8 <= x <= 8, in constant time.
   void selectInto(affineCached dest, int x) {
     // Compute xabs = |x|
-    final xmask = x >> 7;
-    final xabs = (x + xmask) ^ xmask;
+    final int xmask = x >> 7;
+    final int xabs = (x + xmask) ^ xmask;
 
     dest.zero();
     for (int j = 1; j <= 8; j++) {
       // Set dest = j*Q if |x| = j
-      final cond = constantTimeByteEq(xabs, j);
+      final int cond = constantTimeByteEq(xabs, j);
       dest.select(points[j - 1], dest, cond);
     }
     // Now dest = |x|*Q, conditionally negate to get x*Q
@@ -37,11 +37,7 @@ class affineLookupTable {
   @override
   operator ==(Object other) =>
       other is affineLookupTable &&
-      points.asMap().entries.every((e) {
-        final i = e.key;
-        final p = e.value;
-        return p == other.points[i];
-      });
+      points.asMap().entries.every((e) => e.value == other.points[e.key]);
 
   @override
   int get hashCode => points.map((e) => e.hashCode).reduce((a, b) => a ^ b);

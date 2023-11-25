@@ -9,3 +9,7 @@
 
 ## 1.0.3
 - Update ReadMe
+
+## 1.0.4
+- Code improvements
+- Rename tests

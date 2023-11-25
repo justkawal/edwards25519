@@ -8,10 +8,10 @@ class nafLookupTable8 {
   /// This is not optimised for speed; fixed-base tables should be precomputed.
   void fromP3(Point q) {
     points[0].fromP3(q);
-    final q2 = Point.zero();
+    final Point q2 = Point.zero();
     q2.add(q, q);
-    final tmpP3 = Point.zero();
-    final tmpP1xP1 = projP1xP1.zero();
+    final Point tmpP3 = Point.zero();
+    final projP1xP1 tmpP1xP1 = projP1xP1.zero();
     for (int i = 0; i < 63; i++) {
       points[i + 1]
           .fromP3(tmpP3..fromP1xP1(tmpP1xP1..addAffine(q2, points[i])));
@@ -26,11 +26,7 @@ class nafLookupTable8 {
   @override
   operator ==(Object other) =>
       other is nafLookupTable8 &&
-      points.asMap().entries.every((e) {
-        final i = e.key;
-        final p = e.value;
-        return p == other.points[i];
-      });
+      points.asMap().entries.every((e) => e.value == other.points[e.key]);
 
   @override
   int get hashCode => points.map((e) => e.hashCode).reduce((a, b) => a ^ b);
