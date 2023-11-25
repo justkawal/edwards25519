@@ -53,7 +53,7 @@ class Point {
 
   /// generator is the canonical curve basepoint. See TestGenerator for the
   /// correspondence of this encoding with the values in RFC 8032.
-  static final generator = Point.newGeneratorPoint();
+  static final Point generator = Point.newGeneratorPoint();
 
   /// NewGeneratorPoint returns a new Point set to the canonical generator.
   factory Point.newGeneratorPoint() {
@@ -95,7 +95,7 @@ class Point {
   List<int> Bytes() {
     // This function is outlined to make the allocations inline in the caller
     // rather than happen on the heap.
-    final buf = List<int>.filled(32, 0);
+    final List<int> buf = List<int>.filled(32, 0);
     bytes(buf);
     return buf;
   }
@@ -130,18 +130,18 @@ class Point {
     // Read more at https://hdevalence.ca/blog/2020-10-04-its-25519am,
     // specifically the 'Canonical A, R' section.
 
-    final y1 = Element.feZero()..setBytes(bytes);
+    final Element y1 = Element.feZero()..setBytes(bytes);
 
     // -x² + y² = 1 + dx²y²
     // x² + dx²y² = x²(dy² + 1) = y² - 1
     // x² = (y² - 1) / (dy² + 1)
 
     // u = y² - 1
-    final y2 = Element.feZero()..square(y1);
-    final u = Element.feZero()..subtract(y2, Element.feOne());
+    final Element y2 = Element.feZero()..square(y1);
+    final Element u = Element.feZero()..subtract(y2, Element.feOne());
 
     // v = dy² + 1
-    final vv = Element.feZero()..multiply(y2, d);
+    final Element vv = Element.feZero()..multiply(y2, d);
     vv.add(vv, Element.feOne());
 
     // x = +√(u/v)
@@ -151,7 +151,7 @@ class Point {
     }
 
     // Select the negative square root if the sign bit is set.
-    final xxNeg = Element.feZero()..negate(xx);
+    final Element xxNeg = Element.feZero()..negate(xx);
     xx.select(xxNeg, xx, bytes[31] >> 7);
 
     x.set(xx);
@@ -179,7 +179,7 @@ class Point {
   }
 
   /// d is a constant in the curve equation.
-  static final d = Element.feZero()
+  static final Element d = Element.feZero()
     ..setBytes(Uint8List.fromList([
       0xa3,
       0x78,
@@ -215,20 +215,20 @@ class Point {
       0x52
     ]));
 
-  static final d2 = Element.feZero()..add(d, d);
+  static final Element d2 = Element.feZero()..add(d, d);
 
   /// (Re)addition and subtraction.
   /// Add sets v = p + q, and returns v.
   void add(Point p, Point q) {
-    final qCached = projCached.zero()..fromP3(q);
-    final result = projP1xP1.zero()..add(p, qCached);
+    final projCached qCached = projCached.zero()..fromP3(q);
+    final projP1xP1 result = projP1xP1.zero()..add(p, qCached);
     fromP1xP1(result);
   }
 
   /// Subtract sets v = p - q, and returns v.
   void subtract(Point p, Point q) {
-    final qCached = projCached.zero()..fromP3(q);
-    final result = projP1xP1.zero()..sub(p, qCached);
+    final projCached qCached = projCached.zero()..fromP3(q);
+    final projP1xP1 result = projP1xP1.zero()..sub(p, qCached);
     fromP1xP1(result);
   }
 
@@ -242,10 +242,10 @@ class Point {
 
   /// Equal returns 1 if v is equivalent to u, and 0 otherwise.
   int equal(Point u) {
-    final t1 = Element.feZero()..multiply(x, u.z);
-    final t2 = Element.feZero()..multiply(u.x, z);
-    final t3 = Element.feZero()..multiply(y, u.z);
-    final t4 = Element.feZero()..multiply(u.y, z);
+    final Element t1 = Element.feZero()..multiply(x, u.z);
+    final Element t2 = Element.feZero()..multiply(u.x, z);
+    final Element t3 = Element.feZero()..multiply(y, u.z);
+    final Element t4 = Element.feZero()..multiply(u.y, z);
 
     return t1.equal(t2) & t3.equal(t4);
   }
@@ -256,7 +256,8 @@ class Point {
     // This function is outlined to make the allocations inline in the caller
     // rather than happen on the heap. Don't change the style without making
     // sure it doesn't increase the inliner cost.
-    final List<Element> e = List<Element>.generate(4, (_) => Element.feZero());
+    final List<Element> e =
+        List<Element>.generate(4, (_) => Element.feZero(), growable: false);
     return extendedCoordinates(e);
   }
 
@@ -301,8 +302,7 @@ class Point {
   List<int> BytesMontgomery() {
     // This function is outlined to make the allocations inline in the caller
     // rather than happen on the heap.
-    //var buf [32]byte
-    final buf = List<int>.filled(32, 0);
+    final List<int> buf = List<int>.filled(32, 0);
     bytesMontgomery(buf);
     return buf;
   }

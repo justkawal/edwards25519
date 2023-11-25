@@ -8,14 +8,14 @@ import 'test_utils/test_utils.dart';
 
 void main() {
   test('Test Scalar Generate', () {
-    for (var i = 0; i < 1024; i++) {
+    for (int i = 0; i < 1024; i++) {
       final s = generateScalar();
       expect(Scalar.isReduced(s.Bytes()), true);
     }
   });
 
   test('SetCanonicalBytes correctly reduces scalars', () {
-    for (var i = 0; i < 1024; i++) {
+    for (int i = 0; i < 1024; i++) {
       final sc = generateScalar();
 
       final bytes = generateRandomBytes(32);
@@ -31,7 +31,7 @@ void main() {
   });
 
   test('SetCanonicalBytes correctly sets Canonical Bytes', () {
-    for (var i = 0; i < 1024; i++) {
+    for (int i = 0; i < 1024; i++) {
       final sc1 = generateScalar();
       final sc2 = Scalar();
 
@@ -52,7 +52,7 @@ void main() {
   });
 
   test('Test Scalar Multiply Distributes Over Add', () {
-    for (var index = 0; index < 1239; index++) {
+    for (int index = 0; index < 1239; index++) {
       // Compute t1 = (x+y)*z
       final x = generateScalar();
       final y = generateScalar();
@@ -77,7 +77,7 @@ void main() {
   });
 
   test('Test Scalar Add Like Sub Neg', () {
-    for (var index = 0; index < 1024; index++) {
+    for (int index = 0; index < 1024; index++) {
       // Compute t1 = x - y
       final x = generateScalar();
       final y = generateScalar();
@@ -410,7 +410,7 @@ void main() {
         BigInt.parse('27742317777372353535851937790883648493', radix: 10);
     mod += BigInt.one << 252;
 
-    for (var i = 0; i < 1024; i++) {
+    for (int i = 0; i < 1024; i++) {
       final sc = generateScalar();
 
       // generate random bytes
@@ -428,34 +428,34 @@ void main() {
   test('Test Scalar Set Bytes With Clamping', () {
     // Generated with libsodium.js 1.0.18 crypto_scalarmult_ed25519_base.
     {
-      final random =
+      final String random =
           '633d368491364dc9cd4c1bf891b1d59460face1644813240a313e61f2c88216e';
-      final s = Scalar()..setBytesWithClamping(hex.decode(random));
-      final p = Point.zero()..scalarBaseMult(s);
-      final want =
+      final Scalar s = Scalar()..setBytesWithClamping(hex.decode(random));
+      final Point p = Point.zero()..scalarBaseMult(s);
+      final String want =
           '1d87a9026fd0126a5736fe1628c95dd419172b5b618457e041c9c861b2494a94';
-      final got = hex.encode(p.Bytes());
+      final String got = hex.encode(p.Bytes());
       expect(got, want);
     }
     {
-      final zero =
+      final String zero =
           '0000000000000000000000000000000000000000000000000000000000000000';
-      final s = Scalar()..setBytesWithClamping(hex.decode(zero));
-      final p = Point.zero()..scalarBaseMult(s);
-      final want =
+      final Scalar s = Scalar()..setBytesWithClamping(hex.decode(zero));
+      final Point p = Point.zero()..scalarBaseMult(s);
+      final String want =
           '693e47972caf527c7883ad1b39822f026f47db2ab0e1919955b8993aa04411d1';
-      final got = hex.encode(p.Bytes());
+      final String got = hex.encode(p.Bytes());
       expect(got, want);
     }
 
     {
-      final one =
+      final String one =
           'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff';
-      final s = Scalar()..setBytesWithClamping(hex.decode(one));
-      final p = Point.zero()..scalarBaseMult(s);
-      final want =
+      final Scalar s = Scalar()..setBytesWithClamping(hex.decode(one));
+      final Point p = Point.zero()..scalarBaseMult(s);
+      final String want =
           '12e9a68b73fd5aacdbcaf3e88c46fea6ebedb1aa84eed1842f07f8edab65e3a7';
-      final got = hex.encode(p.Bytes());
+      final String got = hex.encode(p.Bytes());
       expect(got, want);
     }
   });
@@ -473,7 +473,7 @@ void main() {
   });
 
   test('Test Bytes Montgomery Infinity', () {
-    final p = Point.identity;
+    final Point p = Point.identity;
     final String want =
         '0000000000000000000000000000000000000000000000000000000000000000';
     final String got = hex.encode(p.BytesMontgomery());
@@ -483,29 +483,29 @@ void main() {
   test('Test Mult By Cofactor', () {
     final String lowOrderBytes =
         '26e8958fc2b227b045c3f489f2ef98f0d5dfac05d3c63339b13802886d53fc85';
-    final lowOrder = Point.zero()
+    final Point lowOrder = Point.zero()
       ..setBytes(Uint8List.fromList(hex.decode(lowOrderBytes)));
 
-    final got = Point.zero()..multByCofactor(lowOrder);
+    final Point got = Point.zero()..multByCofactor(lowOrder);
 
     expect(got.equal(Point.identity), 1);
   });
 
-  test('Test Mult By Cofactor', () {
+  test('Test Mult By Cofactor 2', () {
     final String lowOrderBytes =
         '26e8958fc2b227b045c3f489f2ef98f0d5dfac05d3c63339b13802886d53fc85';
     final lowOrder = Point.zero()
       ..setBytes(Uint8List.fromList(hex.decode(lowOrderBytes)));
 
     for (int i = 0; i < 102; i++) {
-      final scalar = generateRandomBytes(64);
-      final s = Scalar()..setUniformBytes(scalar);
-      final p = Point.zero()..scalarBaseMult(s);
-      final p8 = Point.zero()..multByCofactor(p);
+      final Uint8List scalar = generateRandomBytes(64);
+      final Scalar s = Scalar()..setUniformBytes(scalar);
+      final Point p = Point.zero()..scalarBaseMult(s);
+      final Point p8 = Point.zero()..multByCofactor(p);
       checkOnCurve([p8]);
 
       // 8 * p == (8 * s) * B
-      final reprEight = <int>[
+      final List<int> reprEight = <int>[
         8,
         0,
         0,
@@ -539,9 +539,9 @@ void main() {
         0,
         0
       ];
-      final scEight = Scalar()..setCanonicalBytes(reprEight);
+      final Scalar scEight = Scalar()..setCanonicalBytes(reprEight);
       s.multiply(s, scEight);
-      final pp = Point.zero()..scalarBaseMult(s);
+      final Point pp = Point.zero()..scalarBaseMult(s);
 
       expect(p8.equal(pp), 1);
 
@@ -562,34 +562,34 @@ void main() {
   });
   test('Test Scalar Invert', () {
     for (int i = 0; i < 1024; i++) {
-      final xInv = generateScalar();
-      final x = generateScalar();
+      final Scalar xInv = generateScalar();
+      final Scalar x = generateScalar();
 
       xInv.Invert(x);
-      Scalar check = Scalar()..multiply(x, xInv);
+      final Scalar check = Scalar()..multiply(x, xInv);
 
       expect(check.equal(scOne), 1);
       expect(Scalar.isReduced(xInv.Bytes()), true);
     }
 
-    final randomScalar = dalekScalar;
-    final randomInverse = Scalar()..Invert(randomScalar);
-    Scalar check = Scalar()..multiply(randomScalar, randomInverse);
+    final Scalar randomScalar = dalekScalar;
+    final Scalar randomInverse = Scalar()..Invert(randomScalar);
+    final Scalar check = Scalar()..multiply(randomScalar, randomInverse);
 
     expect(check.equal(scOne), 1);
     expect(Scalar.isReduced(randomInverse.Bytes()), true);
 
-    final zero = Scalar();
-    final xx = Scalar()..Invert(zero);
+    final Scalar zero = Scalar();
+    final Scalar xx = Scalar()..Invert(zero);
 
     expect(xx.equal(zero), 1);
   });
 
   test('Test Multi Scalar Mult Matches Base Mult', () {
     for (int i = 0; i < 124; i++) {
-      final x = generateScalar();
-      final y = generateScalar();
-      final z = generateScalar();
+      final Scalar x = generateScalar();
+      final Scalar y = generateScalar();
+      final Scalar z = generateScalar();
       final Point p = Point.zero()
         ..multiScalarMult(
             [x, y, z], [Point.generator, Point.generator, Point.generator]);
@@ -607,9 +607,9 @@ void main() {
 
   test('Test Var Time Multi Scalar Mult Matches Base Mult', () {
     for (int i = 0; i < 124; i++) {
-      final x = generateScalar();
-      final y = generateScalar();
-      final z = generateScalar();
+      final Scalar x = generateScalar();
+      final Scalar y = generateScalar();
+      final Scalar z = generateScalar();
       final Point p = Point.zero()
         ..varTimeMultiScalarMult(
             [x, y, z], [Point.generator, Point.generator, Point.generator]);

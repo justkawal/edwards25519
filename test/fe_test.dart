@@ -58,7 +58,7 @@ void main() {
   });
 
   test('Test Multiply Distributes Over Add', () {
-    for (var i = 0; i < 999; i++) {
+    for (int i = 0; i < 999; i++) {
       // random x from generated list
       final x = getRandomElement();
 
@@ -99,7 +99,7 @@ void main() {
 
     expect(one.equal(r), 1);
 
-    var randomBytes = generateRandomBytes(32);
+    final Uint8List randomBytes = generateRandomBytes(32);
     final bytes = Uint8List.fromList(randomBytes);
 
     x.setBytes(bytes);
@@ -120,7 +120,7 @@ void main() {
 
   test('Test Mult32', () {
     final random = Random.secure();
-    for (var i = 0; i < 999; i++) {
+    for (int i = 0; i < 999; i++) {
       // random x from generated list
       final x = getRandomElement();
       // random int y
@@ -128,7 +128,7 @@ void main() {
 
       final t1 = Element.feZero();
 
-      for (var j = 0; j < 100; j++) {
+      for (int j = 0; j < 100; j++) {
         t1.mult32(x, y);
       }
 
@@ -136,7 +136,7 @@ void main() {
       ty.l0 = y.toBigInt.toUnsigned(64);
 
       final t2 = Element.feZero();
-      for (var j = 0; j < 100; j++) {
+      for (int j = 0; j < 100; j++) {
         t2.multiply(x, ty);
       }
       expect(t1.equal(t2), 1);
@@ -145,7 +145,7 @@ void main() {
   });
 
   test('Test FeMul', () {
-    for (var i = 0; i < 999; i++) {
+    for (int i = 0; i < 999; i++) {
       // random a from generated list
       final a = getRandomElement();
       // random b from generated list
@@ -285,8 +285,8 @@ void main() {
   });
 
   test('Test Set Bytes Round Trip', () {
-    for (var i = 0; i < 999; i++) {
-      var randomBytes = generateRandomBytes(32);
+    for (int i = 0; i < 999; i++) {
+      final Uint8List randomBytes = generateRandomBytes(32);
       final bytes = Uint8List.fromList(randomBytes);
       final fe = getRandomElement();
 
@@ -304,7 +304,7 @@ void main() {
       expect(isInBounds(fe), true);
     }
 
-    for (var i = 0; i < 999; i++) {
+    for (int i = 0; i < 999; i++) {
       final fe = getRandomElement();
       final r = getRandomElement();
 
@@ -319,7 +319,7 @@ void main() {
     }
 
     // Check some fixed vectors from dalek
-    var tests = [
+    final List<({Uint8List b, Element fe})> tests = [
       (
         fe: Element(
             358744748052810.toBigInt,
@@ -415,7 +415,7 @@ void main() {
   });
 
   test('Test Bytes Big Equivalence', () {
-    for (var i = 0; i < 9999; i++) {
+    for (int i = 0; i < 9999; i++) {
       final randomBytes = generateRandomBytes(32);
       final bytes = Uint8List.fromList(randomBytes);
       final fe = getRandomElement();

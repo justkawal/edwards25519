@@ -64,7 +64,7 @@ class Element {
 
     // If v >= 2^255 - 19, then v + 19 >= 2^255, which would overflow 2^255 - 1,
     // generating a carry. That is, c will be 0 if v < 2^255 - 19, and 1 otherwise.
-    var c = (l0 + bigInt19) >> 51;
+    BigInt c = (l0 + bigInt19) >> 51;
     c = (l1 + c) >> 51;
     c = (l2 + c) >> 51;
     c = (l3 + c) >> 51;
@@ -142,43 +142,43 @@ class Element {
     z2_5_0.multiply(t, z9); // 31 = 2^5 - 2^0
 
     t.square(z2_5_0); // 2^6 - 2^1
-    for (var i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       t.square(t); // 2^10 - 2^5
     }
     z2_10_0.multiply(t, z2_5_0); // 2^10 - 2^0
 
     t.square(z2_10_0); // 2^11 - 2^1
-    for (var i = 0; i < 9; i++) {
+    for (int i = 0; i < 9; i++) {
       t.square(t); // 2^20 - 2^10
     }
     z2_20_0.multiply(t, z2_10_0); // 2^20 - 2^0
 
     t.square(z2_20_0); // 2^21 - 2^1
-    for (var i = 0; i < 19; i++) {
+    for (int i = 0; i < 19; i++) {
       t.square(t); // 2^40 - 2^20
     }
     t.multiply(t, z2_20_0); // 2^40 - 2^0
 
     t.square(t); // 2^41 - 2^1
-    for (var i = 0; i < 9; i++) {
+    for (int i = 0; i < 9; i++) {
       t.square(t); // 2^50 - 2^10
     }
     z2_50_0.multiply(t, z2_10_0); // 2^50 - 2^0
 
     t.square(z2_50_0); // 2^51 - 2^1
-    for (var i = 0; i < 49; i++) {
+    for (int i = 0; i < 49; i++) {
       t.square(t); // 2^100 - 2^50
     }
     z2_100_0.multiply(t, z2_50_0); // 2^100 - 2^0
 
     t.square(z2_100_0); // 2^101 - 2^1
-    for (var i = 0; i < 99; i++) {
+    for (int i = 0; i < 99; i++) {
       t.square(t); // 2^200 - 2^100
     }
     t.multiply(t, z2_100_0); // 2^200 - 2^0
 
     t.square(t); // 2^201 - 2^1
-    for (var i = 0; i < 49; i++) {
+    for (int i = 0; i < 49; i++) {
       t.square(t); // 2^250 - 2^50
     }
     t.multiply(t, z2_50_0); // 2^250 - 2^0
@@ -373,43 +373,43 @@ class Element {
     t0.square(t0); // x^22
     t0.multiply(t1, t0); // x^31
     t1.square(t0); // x^62
-    for (var i = 1; i < 5; i++) {
+    for (int i = 1; i < 5; i++) {
       // x^992
       t1.square(t1);
     }
     t0.multiply(t1, t0); // x^1023 -> 1023 = 2^10 - 1
     t1.square(t0); // 2^11 - 2
-    for (var i = 1; i < 10; i++) {
+    for (int i = 1; i < 10; i++) {
       // 2^20 - 2^10
       t1.square(t1);
     }
     t1.multiply(t1, t0); // 2^20 - 1
     t2.square(t1); // 2^21 - 2
-    for (var i = 1; i < 20; i++) {
+    for (int i = 1; i < 20; i++) {
       // 2^40 - 2^20
       t2.square(t2);
     }
     t1.multiply(t2, t1); // 2^40 - 1
     t1.square(t1); // 2^41 - 2
-    for (var i = 1; i < 10; i++) {
+    for (int i = 1; i < 10; i++) {
       // 2^50 - 2^10
       t1.square(t1);
     }
     t0.multiply(t1, t0); // 2^50 - 1
     t1.square(t0); // 2^51 - 2
-    for (var i = 1; i < 50; i++) {
+    for (int i = 1; i < 50; i++) {
       // 2^100 - 2^50
       t1.square(t1);
     }
     t1.multiply(t1, t0); // 2^100 - 1
     t2.square(t1); // 2^101 - 2
-    for (var i = 1; i < 100; i++) {
+    for (int i = 1; i < 100; i++) {
       // 2^200 - 2^100
       t2.square(t2);
     }
     t1.multiply(t2, t1); // 2^200 - 1
     t1.square(t1); // 2^201 - 2
-    for (var i = 1; i < 50; i++) {
+    for (int i = 1; i < 50; i++) {
       // 2^250 - 2^50
       t1.square(t1);
     }

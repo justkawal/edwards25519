@@ -9,9 +9,9 @@ class nafLookupTable5 {
     // Goal: v.points[i] = (2*i+1)*Q, i.e., Q, 3Q, 5Q, ..., 15Q
     // This allows lookup of -15Q, ..., -3Q, -Q, 0, Q, 3Q, ..., 15Q
     points[0].fromP3(q);
-    final q2 = Point.zero()..add(q, q);
-    final tmpP3 = Point.zero();
-    final tmpP1xP1 = projP1xP1.zero();
+    final Point q2 = Point.zero()..add(q, q);
+    final Point tmpP3 = Point.zero();
+    final projP1xP1 tmpP1xP1 = projP1xP1.zero();
     for (int i = 0; i < 7; i++) {
       points[i + 1].fromP3(tmpP3..fromP1xP1(tmpP1xP1..add(q2, points[i])));
     }
@@ -25,11 +25,7 @@ class nafLookupTable5 {
   @override
   operator ==(Object other) =>
       other is nafLookupTable5 &&
-      points.asMap().entries.every((e) {
-        final i = e.key;
-        final p = e.value;
-        return p == other.points[i];
-      });
+      points.asMap().entries.every((e) => e.value == other.points[e.key]);
 
   @override
   int get hashCode => points.map((e) => e.hashCode).reduce((a, b) => a ^ b);

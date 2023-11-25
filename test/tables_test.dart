@@ -14,8 +14,8 @@ void main() {
       table.selectInto(tmp3, -4);
       // Expect T1 + T2 + T3 = identity
 
-      projP1xP1 accP1xP1 = projP1xP1.zero();
-      final accP3 = Point.identity;
+      final projP1xP1 accP1xP1 = projP1xP1.zero();
+      final Point accP3 = Point.identity;
 
       accP1xP1.add(accP3, tmp1);
       accP3.fromP1xP1(accP1xP1);
@@ -39,8 +39,8 @@ void main() {
       table.selectInto(tmp3, 4);
       // Expect T1 + T2 + T3 = identity
 
-      projP1xP1 accP1xP1 = projP1xP1.zero();
-      final accP3 = Point.identity;
+      final projP1xP1 accP1xP1 = projP1xP1.zero();
+      final Point accP3 = Point.identity;
 
       accP1xP1.addAffine(accP3, tmp1);
       accP3.fromP1xP1(accP1xP1);
@@ -53,21 +53,21 @@ void main() {
     });
 
     test('Naf Lookup Table 5', () {
-      final table = nafLookupTable5()..fromP3(Point.generator);
+      final nafLookupTable5 table = nafLookupTable5()..fromP3(Point.generator);
 
-      final tmp1 = projCached.zero();
-      final tmp2 = projCached.zero();
-      final tmp3 = projCached.zero();
-      final tmp4 = projCached.zero();
+      final projCached tmp1 = projCached.zero();
+      final projCached tmp2 = projCached.zero();
+      final projCached tmp3 = projCached.zero();
+      final projCached tmp4 = projCached.zero();
       table.selectInto(tmp1, 9);
       table.selectInto(tmp2, 11);
       table.selectInto(tmp3, 7);
       table.selectInto(tmp4, 13);
       // Expect T1 + T2 = T3 + T4
 
-      projP1xP1 accP1xP1 = projP1xP1.zero();
-      final lhs = Point.identity;
-      final rhs = Point.identity;
+      final projP1xP1 accP1xP1 = projP1xP1.zero();
+      final Point lhs = Point.identity;
+      final Point rhs = Point.identity;
 
       accP1xP1.add(lhs, tmp1);
       lhs.fromP1xP1(accP1xP1);
@@ -83,21 +83,21 @@ void main() {
     });
 
     test('Naf Lookup Table 8', () {
-      final table = nafLookupTable8()..fromP3(Point.generator);
+      final nafLookupTable8 table = nafLookupTable8()..fromP3(Point.generator);
 
-      final tmp1 = affineCached.zero();
-      final tmp2 = affineCached.zero();
-      final tmp3 = affineCached.zero();
-      final tmp4 = affineCached.zero();
+      final affineCached tmp1 = affineCached.zero();
+      final affineCached tmp2 = affineCached.zero();
+      final affineCached tmp3 = affineCached.zero();
+      final affineCached tmp4 = affineCached.zero();
       table.selectInto(tmp1, 49);
       table.selectInto(tmp2, 11);
       table.selectInto(tmp3, 35);
       table.selectInto(tmp4, 25);
       // Expect T1 + T2 = T3 + T4
 
-      projP1xP1 accP1xP1 = projP1xP1.zero();
-      final lhs = Point.identity;
-      final rhs = Point.identity;
+      final projP1xP1 accP1xP1 = projP1xP1.zero();
+      final Point lhs = Point.identity;
+      final Point rhs = Point.identity;
 
       accP1xP1.addAffine(lhs, tmp1);
       lhs.fromP1xP1(accP1xP1);
