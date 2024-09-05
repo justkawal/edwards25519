@@ -20,7 +20,7 @@ class Bits {
     final BigInt w2 = t >> 32;
     w1 += x0 * y1;
     final BigInt high =
-        ((x1 * y1) & BigInt.from(0xFFFFFFFFFFFFFFFF)) + w2 + ((w1 >> 32));
+        ((x1 * y1) & BigInt.parse('FFFFFFFFFFFFFFFF', radix: 16)) + w2 + ((w1 >> 32));
     final BigInt low = (x * y) & _mask64;
     return (high, low);
   }
