@@ -23,8 +23,8 @@ void main() {
       reason: 'lo-range wide mult failed',
     );
 
-    a = 18014398509481983.toBigInt;
-    b = 18014398509481983.toBigInt; // 2^54 - 1
+    a = BigInt.parse('18014398509481983');
+    b = BigInt.parse('18014398509481983'); // 2^54 - 1
     r = Uint128.mul64(a, b);
     expect(
       r.high.toString(),
