@@ -13,3 +13,6 @@
 ## 1.0.4
 - Code improvements
 - Rename tests
+
+## 1.0.5
+- Web Improvement by @vjrj
