@@ -215,29 +215,31 @@ class Element {
       throw ArgumentError('edwards25519: invalid field element input size');
     }
 
+    final data0 = ByteData.sublistView(x, 0, 8);
+    final data1 = ByteData.sublistView(x, 6, 14);
+    final data2 = ByteData.sublistView(x, 12, 20);
+    final data3 = ByteData.sublistView(x, 19, 27);
+    final data4 = ByteData.sublistView(x, 24, 32);
+
     // Bits 0:51 (bytes 0:8, bits 0:64, shift 0, mask 51).
-    l0 = ByteData.sublistView(x, 0, 8).getUint64(0, Endian.little).toBigInt;
+    l0 = readUint64LE(data0, 0);
     l0 &= maskLow51Bits;
 
     // Bits 51:102 (bytes 6:14, bits 48:112, shift 3, mask 51).
-    l1 = ByteData.sublistView(x, 6, 14).getUint64(0, Endian.little).toBigInt >>
-        3;
+    l1 = readUint64LE(data1, 0) >> 3;
     l1 &= maskLow51Bits;
 
     // Bits 102:153 (bytes 12:20, bits 96:160, shift 6, mask 51).
-    l2 = ByteData.sublistView(x, 12, 20).getUint64(0, Endian.little).toBigInt >>
-        6;
+    l2 = readUint64LE(data2, 0) >> 6;
     l2 &= maskLow51Bits;
 
     // Bits 153:204 (bytes 19:27, bits 152:216, shift 1, mask 51).
-    l3 = ByteData.sublistView(x, 19, 27).getUint64(0, Endian.little).toBigInt >>
-        1;
+    l3 = readUint64LE(data3, 0) >> 1;
     l3 &= maskLow51Bits;
 
     // Bits 204:255 (bytes 24:32, bits 192:256, shift 12, mask 51).
     // Note: not bytes 25:33, shift 4, to avoid overread.
-    l4 = ByteData.sublistView(x, 24, 32).getUint64(0, Endian.little).toBigInt >>
-        12;
+    l4 = readUint64LE(data4, 0) >> 12;
     l4 &= maskLow51Bits;
   }
 
@@ -789,4 +791,10 @@ class Element {
           l4: $l4,
 )''';
   }
+}
+
+BigInt readUint64LE(ByteData data, int offset) {
+  final lo = BigInt.from(data.getUint32(offset, Endian.little));
+  final hi = BigInt.from(data.getUint32(offset + 4, Endian.little));
+  return (hi << 32) | lo;
 }
